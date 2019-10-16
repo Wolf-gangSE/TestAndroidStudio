@@ -4,11 +4,15 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ResultadoActivity extends AppCompatActivity {
 
@@ -16,17 +20,38 @@ public class ResultadoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        Button button = (Button) this.findViewById(R.id.VOLTAR) ;
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
             }
         });
+
+        TextView textViewRUA = (TextView) this.findViewById(R.id.RUA);
+        TextView textViewBAIRRO = (TextView) this.findViewById(R.id.BAIRRO);
+        TextView textViewCIDADE = (TextView) this.findViewById(R.id.CIDADE);
+        TextView textViewUF = (TextView) this.findViewById(R.id.UF);
+        TextView textViewCEP = (TextView) this.findViewById(R.id.CEP);
+
+        String resposta = (String) this.getIntent().getSerializableExtra("resultado");
+
+        try {
+            Gson gson = new Gson();
+            Resultado resultado = gson.fromJson(resposta, Resultado.class);
+            textViewRUA.setText(resultado.getLogradouro());
+            textViewBAIRRO.setText(resultado.getBairro());
+            textViewCIDADE.setText(resultado.getLocalidade());
+            textViewUF.setText(resultado.getUf());
+            textViewCEP.setText(resultado.getCep());
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(ResultadoActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
 }
