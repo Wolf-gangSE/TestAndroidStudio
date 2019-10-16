@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
                                           task.execute(edittext.getText().toString());
                                       }
                                   }
-
-
         );
     }
     protected void onStart() {
