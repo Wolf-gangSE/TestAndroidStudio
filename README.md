@@ -1,12 +1,19 @@
 # TestAndroidStudio
 
 A fazer:
+
 Usar  OO para clasifição das opções de localização.
+
 Criar Classes:
+
 Rua
+
 Bairro
+
 Cidade
+
 Estado
+
 
 Cada classe possui uma String e um vetor.
 
